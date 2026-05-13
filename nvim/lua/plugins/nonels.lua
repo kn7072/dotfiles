@@ -86,6 +86,7 @@ local ruff_lint = {
 
             for _, line in ipairs(vim.split(output, "\n")) do
                 if line ~= "" then
+                    print(line)
                     local filename, row, col, code, message = line:match(
                                                                   "(%g+):(%d+):(%d+): ([%w%d]+) (.*)")
                     if message ~= nil then
@@ -212,7 +213,7 @@ null_ls.setup({
     },
 
     on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
+        if client:supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
@@ -229,3 +230,8 @@ null_ls.setup({
         end
     end
 })
+
+--[[
+conform.nvim
+nvim-lint
+--]]

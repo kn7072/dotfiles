@@ -38,7 +38,8 @@ require("lazy").setup({
                     "clangd", "debugpy", "golangci-lint", -- "delve", 
                     "lua-language-server", "luaformatter", "prettierd",
                     "pyright", "shellcheck", "stylua", "bash-language-server",
-                    "bash-debug-adapter", "texlab", "ruff", "marksman"
+                    "bash-debug-adapter", "texlab", "ruff", "marksman",
+                    "codespell"
                     -- "flake8", "isort", "pylint", "black" 
                 },
                 start_delay = 0
@@ -55,7 +56,8 @@ require("lazy").setup({
             {"nvim-lua/plenary.nvim"},
             {"nvim-telescope/telescope-live-grep-args.nvim"}
         }
-    }, {"nvimtools/none-ls.nvim"},
+    }, -- {"nvimtools/none-ls.nvim"},
+    {"stevearc/conform.nvim", opts = {}},
     {"akinsho/toggleterm.nvim", version = "*", config = true},
     {"akinsho/bufferline.nvim", dependencies = {"nvim-tree/nvim-web-devicons"}},
     {
