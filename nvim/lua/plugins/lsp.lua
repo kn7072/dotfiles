@@ -14,11 +14,9 @@ local function set_keymap(...)
 end
 
 vim.lsp.enable({
-    "gopls", "pyright", -- "ts_ls", 
-    "lua_ls"
-    -- "rust", "eslint", "angularls", "cssls",
+    "gopls", "pyright", "ts_ls", "lua_ls", "marksman", "bashls" -- "rust", "eslint", "angularls", "cssls",
     -- "emmet", "yamlls", "html"
-    -- "golangci_lint",
+    -- "golangci_lint"
 })
 
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()

@@ -8,6 +8,15 @@ local hints = {
     rangeVariableTypes = true
 }
 
+-- Регистрируем новый тип файла 'gotmpl' для расширения .gotmpl
+vim.filetype.add({
+    extension = {
+        gotmpl = 'gotmpl'
+        -- Если у вас есть другие похожие расширения, их тоже можно добавить
+        -- tpl = 'gotmpl',
+    }
+})
+
 return {
     cmd = {"gopls"},
     filetypes = {"go", "gomod", "gowork", "gotmpl"},
