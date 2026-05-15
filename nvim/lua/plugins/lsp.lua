@@ -1,5 +1,4 @@
-vim.lsp.set_log_level("debug")
-
+-- vim.lsp.set_log_level("debug")
 local function get_opts(custom_opts)
     local opts = {noremap = true, silent = true}
     if custom_opts then
