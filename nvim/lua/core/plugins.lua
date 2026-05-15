@@ -40,7 +40,8 @@ require("lazy").setup({
                     "lua-language-server", "luaformatter", "prettierd",
                     "pyright", "shellcheck", "stylua", "bash-language-server",
                     "bash-debug-adapter", "texlab", "ruff", "marksman",
-                    "codespell", "typescript-language-server"
+                    "codespell", "typescript-language-server",
+                    "yaml-language-server"
                     -- "flake8", "isort", "pylint", "black" 
                 },
                 start_delay = 0
