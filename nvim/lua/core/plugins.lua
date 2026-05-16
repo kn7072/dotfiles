@@ -36,7 +36,7 @@ require("lazy").setup({
             require("mason-tool-installer").setup({
                 ensure_installed = {
                     "clangd", "debugpy", "gofumpt", "goimports",
-                    "golangci-lint", -- "delve", 
+                    "golangci-lint", "revive", -- "delve", 
                     "lua-language-server", "luaformatter", "prettierd",
                     "pyright", "shellcheck", "stylua", "bash-language-server",
                     "bash-debug-adapter", "texlab", "ruff", "marksman",
