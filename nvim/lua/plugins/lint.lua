@@ -6,7 +6,11 @@ lint.linters.ruff.args = vim.list_extend(lint.linters.ruff.args or {}, {
     vim.fn.expand(vim.fn.stdpath("config") .. "/plugin_configs/ruff.toml")
 })
 
-lint.linters_by_ft = {python = {"ruff"}, go = {"revive", "golangcilint"}}
+lint.linters_by_ft = {
+    python = {"ruff"},
+    go = {"revive", "golangcilint"},
+    make = {"checkmake"}
+}
 
 local my_augroup = vim.api.nvim_create_augroup("MyLintingGroup", {clear = true})
 

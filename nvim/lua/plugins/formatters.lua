@@ -18,6 +18,9 @@ require("conform").setup({
         -- You can also customize some of the format options for the filetype
         rust = {"rustfmt", lsp_format = "fallback"},
         python = {"ruff_format", "ruff_organize_imports"},
+        -- makefile 
+        -- в mason его пока нет - установим через pip (pip install mbake)
+        make = {"bake"},
         -- Use the "*" filetype to run formatters on all filetypes.
         ["*"] = {"codespell"},
 

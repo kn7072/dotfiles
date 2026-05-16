@@ -41,7 +41,7 @@ require("lazy").setup({
                     "pyright", "shellcheck", "stylua", "bash-language-server",
                     "bash-debug-adapter", "texlab", "ruff", "marksman",
                     "codespell", "typescript-language-server",
-                    "yaml-language-server"
+                    "yaml-language-server", "checkmake"
                     -- "flake8", "isort", "pylint", "black" 
                 },
                 start_delay = 0
