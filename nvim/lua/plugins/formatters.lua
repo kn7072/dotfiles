@@ -69,6 +69,12 @@ require("conform").setup({
                 "--config",
                 vim.fn.stdpath("config") .. "/plugin_configs/ruff.toml"
             }
+        },
+        bake = {
+            append_args = {
+                "--config",
+                vim.fn.stdpath("config") .. "/plugin_configs/.bake.toml"
+            }
         }
     }
 })

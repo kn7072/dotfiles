@@ -1,0 +1,64 @@
+# Отформатировать файл и перезаписать его
+# mbake format Makefile
+
+# Проверить, нужно ли форматирование (удобно для CI/CD)
+# mbake format --check Makefile
+
+# Показать, что изменится, но не применять изменения
+# mbake format --diff Makefile
+
+# mbake configuration file
+# Generated with: mbake init
+
+# Global settings
+debug = false
+verbose = false
+
+# Error message formatting
+gnu_error_format = true
+wrap_error_messages = false
+
+[formatter]
+# Spacing settings - enable proper spacing
+# Добавлять пробелы вокруг оператора присваивания: 'CC=gcc' -> 'CC = gcc'
+space_around_assignment = true
+space_before_colon = false
+# Добавлять пробел после двоеточия в правиле: 'target: deps' -> 'target: deps'
+space_after_colon = true
+
+# Line continuation settings
+# Приводить к единообразию переносы строк с обратным слешем
+normalize_line_continuations = true
+max_line_length = 120
+
+# PHONY settings
+auto_insert_phony_declarations = false
+# Группировать все объявления .PHONY в одной строке: '.PHONY: all clean install'
+group_phony_declarations = true
+# Размещать объявление .PHONY в самом верху файла
+phony_at_top = true
+
+# General settings - enable proper formatting
+# Удалять висячие пробелы в конце строк
+remove_trailing_whitespace = true
+ensure_final_newline = true
+# автоматическое "выравнивание" пустых строк
+normalize_empty_lines = true
+# Ограничивает максимальное количество идущих подряд пустых строк
+max_consecutive_empty_lines = 1
+# Исправлять случайное использование пробелов вместо табуляции в командах
+fix_missing_recipe_tabs = true
+
+# Conditional formatting settings (Default disabled)
+indent_nested_conditionals = false
+# Indentation settings
+tab_width = 2
+
+# Variable alignment settings
+# --- Выравнивание значений переменных ---
+# Выравнивать соседние объявления переменных по знаку '=' для создания визуальных колонок
+# Например:
+# CC     = gcc
+# CFLAGS = -Wall
+align_variable_assignments = false
+align_across_comments = false
