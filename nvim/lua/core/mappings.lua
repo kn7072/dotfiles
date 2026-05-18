@@ -55,3 +55,8 @@ kmap("n", "<leader>co", ":copen<CR>")
 kmap("n", "<leader>cx", ":cclose<CR>")
 kmap("n", "<leader>cn", ":cnext<CR>")
 kmap("n", "<leader>cp", ":cprev<CR>")
+
+-- sql format
+kmap("v", "<leader>fs", "!sqlfluff format --dialect postgres - <cr>",
+     {silent = true})
+

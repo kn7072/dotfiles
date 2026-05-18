@@ -15,7 +15,7 @@ end
 
 vim.lsp.enable({
     "gopls", "pyright", "ts_ls", "lua_ls", "marksman", "bashls", "cssls",
-    "clangd", "yamlls", "html" -- ,"golangci_lint"
+    "clangd", "yamlls", "html", "sqls" -- ,"golangci_lint"
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
