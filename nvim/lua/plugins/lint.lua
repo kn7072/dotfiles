@@ -6,6 +6,14 @@ lint.linters.ruff.args = vim.list_extend(lint.linters.ruff.args or {}, {
     vim.fn.expand(vim.fn.stdpath("config") .. "/plugin_configs/ruff.toml")
 })
 
+-- добавил параметр конфиг для golangcilint
+lint.linters.golangcilint.args = vim.list_extend(
+                                     lint.linters.golangcilint.args or {}, {
+        "--config",
+        vim.fn
+            .expand(vim.fn.stdpath("config") .. "/plugin_configs/.golangci.yml")
+    })
+
 lint.linters_by_ft = {
     python = {"ruff"},
     go = {"revive", "golangcilint"},
