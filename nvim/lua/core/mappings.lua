@@ -56,6 +56,11 @@ kmap("n", "<leader>cx", ":cclose<CR>")
 kmap("n", "<leader>cn", ":cnext<CR>")
 kmap("n", "<leader>cp", ":cprev<CR>")
 
+-- окрывает отдельное окно с подробной информацией о слове (необходимо навести курсор на слово)
+kmap({"n"}, "<leader>w", function()
+    vim.cmd.Eng(vim.fn.expand("<cword>"))
+end)
+
 -- sql format
 kmap("v", "<leader>fs", "!sqlfluff format --dialect postgres - <cr>",
      {silent = true})

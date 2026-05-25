@@ -84,3 +84,60 @@ end, {})
 api.nvim_create_user_command('HighlightOverLongLines', function(opts)
     highlight_overlong_lines()
 end, {})
+
+-- получить информацию о слове
+
+local function split(str, sep)
+    local result = {}
+    local regex = ("([^%s]+)"):format(sep)
+    for each in str:gmatch(regex) do
+        local res, _ = each:gsub("\n", "")
+        table.insert(result, res)
+    end
+    return result
+end
+
+local eng_win_id = -1
+local bufnr = -1
+
+api.nvim_create_user_command('Eng', function(opts)
+    local file_path =
+        "/home/stepan/git_repos/kn7072/ANKI/TelegramBot/all_words.json"
+    local path_to_synonym =
+        "/home/stepan/git_repos/kn7072/ANKI/Синонимы/clear_dict.txt"
+    local cmd_for_all_words = string.format(
+                                  [[jq 'to_entries[] | select(.key | test("^%s.*"))' "%s"]],
+                                  opts.args, file_path)
+    local cmd_for_synonym = string.format(
+                                [[cat "%s" | grep -Ei -A 7 --color "%s"]],
+                                path_to_synonym, opts.args)
+
+    local content_word = vim.fn.system(cmd_for_all_words)
+    local content_synonym = vim.fn.system(cmd_for_synonym)
+    content_word = content_word .. content_synonym
+
+    local current_win = api.nvim_get_current_win()
+
+    if not api.nvim_buf_is_valid(bufnr) then
+        bufnr = api.nvim_create_buf(false, true)
+        -- print(string.format("%s", bufnr))
+        api.nvim_buf_set_name(bufnr, 'English')
+
+    end
+
+    local lines = split(content_word, "\n")
+    local count_lines = api.nvim_buf_line_count(bufnr)
+
+    -- api.nvim_buf_set_lines(bufnr, 0, 0, false, lines) -- если необходимо продолжить писать в тот же буфер
+    api.nvim_buf_set_lines(bufnr, 0, count_lines, false, lines)
+    if not api.nvim_win_is_valid(eng_win_id) then
+        local window_opt = {win = current_win, split = 'right'} -- , split = 'left'
+        eng_win_id = api.nvim_open_win(bufnr, false, window_opt) -- window_opt
+    end
+
+    api.nvim_set_current_win(eng_win_id)
+
+    -- print(eng_win_id)
+    vim.cmd('redraw')
+
+end, {desc = "English", nargs = 1})
