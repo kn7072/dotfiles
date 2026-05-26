@@ -42,7 +42,7 @@ require("lazy").setup({
                     "bash-debug-adapter", "texlab", "ruff", "marksman",
                     "codespell", "typescript-language-server",
                     "yaml-language-server", "checkmake", "tree-sitter-cli",
-                    "sqlfluff", "sqls"
+                    "sqlfluff", "sqls", "ast-grep"
                     -- "flake8", "isort", "pylint", "black" 
                 },
                 start_delay = 0
@@ -146,6 +146,7 @@ require("lazy").setup({
             require('grug-far').setup({
                 -- options, see Configuration section below
                 -- there are no required options atm
+                engine = 'astgrep'
             });
         end
     }, {'kevinhwang91/nvim-bqf'}, -- {
