@@ -85,6 +85,27 @@ api.nvim_create_user_command('HighlightOverLongLines', function(opts)
     highlight_overlong_lines()
 end, {})
 
+vim.api.nvim_create_user_command('Rg', function(opts)
+    -- 1. Сохраняем текущие (стандартные) настройки grep во временные переменные
+    local old_grepprg = vim.o.grepprg
+    local old_grepformat = vim.o.grepformat
+
+    -- 2. Временно переключаем Neovim на ripgrep
+    vim.o.grepprg = "rg --vimgrep --smart-case"
+    vim.o.grepformat = "%f:%l:%c:%m"
+
+    -- 3. Выполняем поиск в фоне (silent grep!) с переданными вами аргументами
+    -- opts.args содержит всё, что вы написали после :Rg (включая любые флаги)
+    vim.cmd('silent grep! ' .. opts.args)
+
+    -- 4. Сразу же возвращаем стандартные настройки Neovim обратно
+    vim.o.grepprg = old_grepprg
+    vim.o.grepformat = old_grepformat
+
+    -- 5. Открываем окно Quickfix, чтобы увидеть результаты работы ripgrep
+    vim.cmd('copen')
+end, {nargs = '*'}) -- { nargs = '*' } позволяет передавать любое число аргументов и флагов
+
 -- получить информацию о слове
 
 local function split(str, sep)

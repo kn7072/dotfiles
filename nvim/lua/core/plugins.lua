@@ -102,8 +102,7 @@ require("lazy").setup({
             require("langmapper").setup({ --[[ your config ]] })
         end
     }, {"chentoast/marks.nvim", event = "VeryLazy", opts = {}},
-    {"tpope/vim-surround"}, {"tpope/vim-fugitive"},
-    {"nvim-pack/nvim-spectre", dependencies = {"nvim-lua/plenary.nvim"}}, {
+    {"tpope/vim-surround"}, {"tpope/vim-fugitive"}, {
         -- плагины для отрбражения картинок
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
@@ -137,7 +136,19 @@ require("lazy").setup({
             -- VimTeX configuration goes here, e.g.
             vim.g.vimtex_view_general_viewer = "okular"
         end
-    }, {"hat0uma/csvview.nvim"}, -- {
+    }, {"hat0uma/csvview.nvim"}, {
+        'MagicDuck/grug-far.nvim',
+        -- Note (lazy loading): grug-far.lua defers all it's requires so it's lazy by default
+        -- additional lazy config to defer loading is not really needed...
+        config = function()
+            -- optional setup call to override plugin options
+            -- alternatively you can set options with vim.g.grug_far = { ... }
+            require('grug-far').setup({
+                -- options, see Configuration section below
+                -- there are no required options atm
+            });
+        end
+    }, {'kevinhwang91/nvim-bqf'}, -- {
     --     "stuckinsnow/rg-lua.nvim",
     --     dependencies = {
     --         "ibhagwan/fzf-lua" -- optional
