@@ -42,7 +42,7 @@ require("lazy").setup({
                     "bash-debug-adapter", "texlab", "ruff", "marksman",
                     "codespell", "typescript-language-server",
                     "yaml-language-server", "checkmake", "tree-sitter-cli",
-                    "sqlfluff", "sqls", "ast-grep"
+                    "sqlfluff", "sqls", "ast-grep", "tinymist"
                     -- "flake8", "isort", "pylint", "black" 
                 },
                 start_delay = 0
@@ -149,7 +149,12 @@ require("lazy").setup({
                 engine = 'astgrep'
             });
         end
-    }, {'kevinhwang91/nvim-bqf'}, -- {
+    }, {'kevinhwang91/nvim-bqf'}, {
+        'chomosuke/typst-preview.nvim',
+        lazy = false, -- or ft = 'typst'
+        version = '1.*',
+        opts = {} -- lazy.nvim will implicitly calls `setup {}`
+    }, -- {
     --     "stuckinsnow/rg-lua.nvim",
     --     dependencies = {
     --         "ibhagwan/fzf-lua" -- optional
