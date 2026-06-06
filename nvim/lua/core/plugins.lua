@@ -49,9 +49,19 @@ require("lazy").setup({
             })
         end
     }, {'sainnhe/gruvbox-material', lazy = false, priority = 1000},
-    {"hrsh7th/cmp-nvim-lsp"}, {"hrsh7th/cmp-buffer"}, {"hrsh7th/cmp-path"},
-    {"hrsh7th/cmp-cmdline"}, {"rcarriga/cmp-dap"}, {"hrsh7th/nvim-cmp"},
-    {"hrsh7th/cmp-nvim-lsp-signature-help"}, {
+    -- {"hrsh7th/cmp-nvim-lsp"}, {"hrsh7th/cmp-buffer"}, {"hrsh7th/cmp-path"},
+    -- {"hrsh7th/cmp-cmdline"}, {"rcarriga/cmp-dap"}, 
+    -- {"hrsh7th/cmp-nvim-lsp-signature-help"}, {"saadparwaiz1/cmp_luasnip"},
+
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline", "hrsh7th/cmp-nvim-lsp-signature-help",
+            "rcarriga/cmp-dap", "saadparwaiz1/cmp_luasnip"
+        }
+        -- enabled = false
+    }, {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             {"nvim-lua/plenary.nvim"},
@@ -86,8 +96,7 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp",
         dependencies = {"rafamadriz/friendly-snippets"}
-    }, {"rafamadriz/friendly-snippets"}, -- {"saadparwaiz1/cmp_luasnip"},
-    {"mbbill/undotree"}, {
+    }, {"rafamadriz/friendly-snippets"}, {"mbbill/undotree"}, {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter"
@@ -167,6 +176,13 @@ require("lazy").setup({
     --     lazy = false,
     --     dependencies = {"nvim-tree/nvim-web-devicons"}
     -- }
+    -- автокомлит, но к сожалению по не поддерживате автодополение в dap
+    -- {
+    --     'saghen/blink.cmp',
+    --     version = '1.*',
+    --     dependencies = {'rafamadriz/friendly-snippets'},
+    --     opts = {} -- Пустой opts, вся конфигурация будет в вашем отдельном модуле
+    -- }, 
     -- подключение собстввенных плагинов
     {dir = path_to_my_plugin .. "switch_buffer"},
     {dir = path_to_my_plugin .. "surround"}
