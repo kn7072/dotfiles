@@ -50,15 +50,14 @@ require("lazy").setup({
         end
     }, {'sainnhe/gruvbox-material', lazy = false, priority = 1000},
     {"hrsh7th/cmp-nvim-lsp"}, {"hrsh7th/cmp-buffer"}, {"hrsh7th/cmp-path"},
-    {"hrsh7th/cmp-cmdline"}, {"hrsh7th/nvim-cmp"},
+    {"hrsh7th/cmp-cmdline"}, {"rcarriga/cmp-dap"}, {"hrsh7th/nvim-cmp"},
     {"hrsh7th/cmp-nvim-lsp-signature-help"}, {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             {"nvim-lua/plenary.nvim"},
             {"nvim-telescope/telescope-live-grep-args.nvim"}
         }
-    }, -- {"nvimtools/none-ls.nvim"},
-    {'mfussenegger/nvim-lint'}, {"stevearc/conform.nvim", opts = {}},
+    }, {'mfussenegger/nvim-lint'}, {"stevearc/conform.nvim", opts = {}},
     {"akinsho/toggleterm.nvim", version = "*", config = true},
     {"akinsho/bufferline.nvim", dependencies = {"nvim-tree/nvim-web-devicons"}},
     {
@@ -87,7 +86,7 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp",
         dependencies = {"rafamadriz/friendly-snippets"}
-    }, {"rafamadriz/friendly-snippets"}, {"saadparwaiz1/cmp_luasnip"},
+    }, {"rafamadriz/friendly-snippets"}, -- {"saadparwaiz1/cmp_luasnip"},
     {"mbbill/undotree"}, {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
@@ -146,7 +145,7 @@ require("lazy").setup({
             require('grug-far').setup({
                 -- options, see Configuration section below
                 -- there are no required options atm
-                engine = 'astgrep'
+                -- engine = 'astgrep'
             });
         end
     }, {'kevinhwang91/nvim-bqf'}, {
