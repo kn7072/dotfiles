@@ -4,7 +4,7 @@ require("core.colors")
 require("core.mappings")
 require("core.configs")
 require("core.diagnostics")
-
+require("core.popup")
 -- Plugins
 require("plugins.neotree")
 require("plugins.treesitter")

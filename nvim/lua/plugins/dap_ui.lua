@@ -147,3 +147,4 @@ vim.keymap.set("n", "<leader>de", function()
                                                          true), "n", false)
     require("notify")("Debugger session ended", "warn")
 end, {desc = "Close debugger and clear breakpoints"})
+
