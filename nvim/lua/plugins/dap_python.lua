@@ -58,7 +58,7 @@ dap.configurations.python = {
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
         program = "${file}", -- This configuration will launch the current file if used.
         -- ✅ ВАЖНО: указываем, каким Python запускать сам код
-        python = pythonPath() -- каким Python запускать код проекта
+        python = pythonPath -- каким Python запускать код проекта
 
     }, -- {
     --         type = 'python',
@@ -88,7 +88,7 @@ dap.configurations.python = {
             return vim.split(args_string, " +")
         end,
         console = "integratedTerminal",
-        python = pythonPath() -- каким Python запускать код проекта
+        python = pythonPath -- каким Python запускать код проекта
 
     }
 }
