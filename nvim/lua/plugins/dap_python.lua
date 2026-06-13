@@ -2,6 +2,9 @@
 -- https://github.com/mfussenegger/nvim-dap
 -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 local dap = require("dap")
+-- Путь к Python из Mason, где установлен debugpy - именно туда его устновил mason - это сервер
+local debugpy_adapter_path = vim.fn.stdpath("data") ..
+                                 "/mason/packages/debugpy/venv/bin/python"
 
 local pythonPath = function()
     -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
@@ -14,9 +17,8 @@ local pythonPath = function()
     elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
         interpreter = cwd .. "/.venv/bin/python"
     else
-        -- return '/usr/bin/python3'
+        -- системный
         interpreter = "python3"
-        -- '/home/stepan/.cache/pypoetry/virtualenvs/telegrambot-XV0byvRV-py3.12/bin/python'
     end
     require("notify")("interpreter is " .. interpreter)
     return interpreter
@@ -38,11 +40,8 @@ dap.adapters.python = function(cb, config)
     else
         cb({
             type = "executable",
-            -- command = '/home/stepan/.cache/pypoetry/virtualenvs/telegrambot-XV0byvRV-py3.12/bin/python', -- 'path/to/virtualenvs/debugpy/bin/python',
-            -- command = '/usr/bin/python3',
-            -- command = "python3",
-            -- command = os.getenv("HOME") .. '/git/Machine-learning/.venv/bin/python3',
-            command = pythonPath(),
+            -- ✅ ВАЖНО: используем Python из Mason для запуска debugpy.adapter
+            command = debugpy_adapter_path, -- каким Python запускать сам отладчик (адаптер)
             args = {"-m", "debugpy.adapter"},
             options = {source_filetype = "python"}
         })
@@ -57,7 +56,10 @@ dap.configurations.python = {
         console = "integratedTerminal",
         justMyCode = false,
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-        program = "${file}" -- This configuration will launch the current file if used.
+        program = "${file}", -- This configuration will launch the current file if used.
+        -- ✅ ВАЖНО: указываем, каким Python запускать сам код
+        python = pythonPath() -- каким Python запускать код проекта
+
     }, -- {
     --         type = 'python',
     --         request = 'launch',
@@ -85,6 +87,8 @@ dap.configurations.python = {
             local args_string = vim.fn.input("Arguments: ")
             return vim.split(args_string, " +")
         end,
-        console = "integratedTerminal"
+        console = "integratedTerminal",
+        python = pythonPath() -- каким Python запускать код проекта
+
     }
 }
