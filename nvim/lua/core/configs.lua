@@ -83,9 +83,6 @@ o.foldenable = true
 opt.fixeol = true
 opt.fixendofline = true
 
-vim.env.PATH = string.format("%s:%s",
-                             "/home/stepan/.cache/pypoetry/virtualenvs/kn7072-mq-0OsHe-py3.12/bin",
-                             vim.env.PATH)
 -- Курсор
 -- мигание курсора
 -- :h guicursor

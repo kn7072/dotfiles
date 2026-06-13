@@ -38,8 +38,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
             buffer = bufnr,
             desc = "Jumps to the definition of the symbol under the cursor"
         }))
-        set_keymap("n", "<leader>ga", "<Cmd>lua vim.lsp.buf.code_action()<CR>",
-                   get_opts({buffer = bufnr}))
+        set_keymap({"n", "v"}, "<leader>ga",
+                   "<Cmd>lua vim.lsp.buf.code_action()<CR>",
+                   get_opts({buffer = bufnr, desc = "Code action"}))
         set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", get_opts({
             buffer = bufnr,
             desc = "Displays hover information about the symbol under the cursor"
@@ -104,6 +105,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                        get_opts({buffer = bufnr}))
         end
 
+        -- Подсказки, встроенные прямо в текст (типы переменных, имена параметров)
         if client:supports_method("textDocument/inlayHint") then
             vim.keymap.set("n", "<leader>lih", function()
                 vim.lsp.inlay_hint.enable(
@@ -112,8 +114,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
             end, get_opts({buffer = bufnr, desc = "Toggle Inlay Hints"}))
         end
 
-        -- А здесь можно добавить логику для конкретного сервера, например, для Biome
-        -- if client.name == "biome" then
+        -- А здесь можно добавить логику для конкретного сервера
+        -- if client.name == "pyright" then
         --     -- Ваша специфичная настройка для Biome
         --     vim.keymap.set("n", "<leader>bf", function()
         --         vim.lsp.buf.code_action({

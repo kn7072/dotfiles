@@ -103,6 +103,15 @@ vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 vim.fn.sign_define("DapLogPoint", dap_breakpoint.logpoint)
 vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
 
+vim.keymap.set("n", "<localleader>s", dap.continue,
+               {desc = "statr a new debug session"})
+vim.keymap.set("n", "<localleader>n", dap.step_over, {desc = "step over"})
+vim.keymap.set("n", "<localleader>i", dap.step_into, {desc = "step into"})
+vim.keymap.set("n", "<localleader>o", dap.step_out, {desc = "step out"})
+vim.keymap.set("n", "<localleader>b", dap.toggle_breakpoint,
+               {desc = "Creates or removes a breakpoint at the current line"})
+
+-- перевести команды на localleader
 vim.keymap.set("n", "<Leader>dc", dap.continue,
                {desc = "statr a new debug session"})
 vim.keymap.set("n", "<Leader>dn", dap.step_over, {desc = "step over"})
@@ -145,6 +154,6 @@ vim.keymap.set("n", "<leader>de", function()
     dap.terminate()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true,
                                                          true), "n", false)
-    require("notify")("Debugger session ended", "warn")
+    require("notify")("Debugger session is ended", "warn")
 end, {desc = "Close debugger and clear breakpoints"})
 

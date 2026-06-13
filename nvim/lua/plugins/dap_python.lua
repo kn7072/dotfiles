@@ -8,15 +8,18 @@ local pythonPath = function()
     -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
     -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
     local cwd = vim.fn.getcwd()
+    local interpreter = ""
     if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-        return cwd .. "/venv/bin/python"
+        interpreter = cwd .. "/venv/bin/python"
     elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-        return cwd .. "/.venv/bin/python"
+        interpreter = cwd .. "/.venv/bin/python"
     else
         -- return '/usr/bin/python3'
-        return "python3"
+        interpreter = "python3"
         -- '/home/stepan/.cache/pypoetry/virtualenvs/telegrambot-XV0byvRV-py3.12/bin/python'
     end
+    require("notify")("interpreter is " .. interpreter)
+    return interpreter
 end
 
 dap.adapters.python = function(cb, config)
