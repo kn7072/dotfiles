@@ -8,10 +8,11 @@ local function get_python_path()
     -- находим корень проекта
     local root_dir = vim.fs.root(0, root_markers)
     -- Проверяем .venv в корне проекта
-
-    local venv_path = root_dir .. "/.venv/bin/python"
-    if vim.uv.fs_stat(venv_path) then
-        return venv_path
+    if root_dir then
+        local venv_path = root_dir .. "/.venv/bin/python"
+        if vim.uv.fs_stat(venv_path) then
+            return venv_path
+        end
     end
     -- Если нет .venv, возвращаем nil (Pyright использует системный)
     return nil
@@ -34,7 +35,7 @@ return {
     --[[ Determines if a server is
     started without a matching root directory. See lspconfig-single-file-support. ]]
     single_file_support = true,
-    root_dir = vim.fs.root(0, root_markers),
+    -- root_dir = vim.fs.root(0, root_markers),
     settings = {
         python = {
             -- pythonPath = "/home/stepan/temp/test_convert_book/.venv/bin/python",
