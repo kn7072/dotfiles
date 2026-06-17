@@ -60,7 +60,7 @@ local function git_backup()
 
     -- Создаём директорию для бэкапа файла, если её нет
     local backup_file_dir = vim.fn.fnamemodify(backup_file_path, ":h")
-    print(backup_file_dir)
+    -- print(backup_file_dir)
     vim.fn.mkdir(backup_file_dir, "p") -- создаём родительские директории рекурсивно
 
     -- Копируем файл в репозиторий с сохранением структуры
