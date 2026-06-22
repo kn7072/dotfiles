@@ -1,4 +1,7 @@
--- в init.lua
+-- плагин создает репозиторий для файлов которые были сохранены (:w)
+-- чтобы была история сохранений - на случая удаления временных файлов или иных нештатных случаев
+--
+local max_size_bytes = 30 * 1024 * 1024 -- 30 МБ
 local function create_repo(backup_dir)
     if vim.fn.isdirectory(backup_dir) == 0 then
         vim.fn.mkdir(backup_dir, "p")
@@ -47,7 +50,6 @@ local function git_backup()
         return -- Файл не найден или недоступен
     end
 
-    local max_size_bytes = 30 * 1024 * 1024 -- 30 МБ
     if size > max_size_bytes then
         print("⚠️ Файл пропущен: размер " ..
                   string.format("%.1f", size / 1024 / 1024) .. " МБ > 30 МБ")

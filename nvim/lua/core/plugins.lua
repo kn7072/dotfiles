@@ -162,6 +162,29 @@ require("lazy").setup({
         lazy = false, -- or ft = 'typst'
         version = '1.*',
         opts = {} -- lazy.nvim will implicitly calls `setup {}`
+    }, {
+        "theHamsta/nvim-dap-virtual-text",
+        dependencies = {
+            "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter"
+        },
+        config = function()
+            require("nvim-dap-virtual-text").setup({
+                enabled = true, -- Включить плагин
+                enabled_commands = true, -- Создать команды :DapVirtualTextEnable, :DapVirtualTextDisable и т.д.
+                highlight_changed_variables = true, -- Подсвечивать переменные, значения которых изменились
+                highlight_new_as_changed = true, -- Подсвечивать новые переменные как измененные
+                show_stop_reason = true, -- Показывать причину остановки (breakpoint, step, etc.)
+                commented = false, -- Не добавлять комментарии перед значениями
+                only_first_definition = true, -- Показывать значение только у первого определения переменной
+                all_references = false, -- Не показывать значения у всех ссылок на переменную
+                filter_references_pattern = '<module', -- Фильтр для references
+                virt_text_pos = 'eol', -- Позиция виртуального текста: 'eol', 'overlay', 'right_align'
+                all_frames = false, -- Показывать значения для всех фреймов стека
+                virt_lines = false, -- Не показывать значения на отдельных строках
+                virt_text_win_col = nil -- Не привязывать к определенной колонке окна
+
+            })
+        end
     }, -- {
     --     "stuckinsnow/rg-lua.nvim",
     --     dependencies = {
