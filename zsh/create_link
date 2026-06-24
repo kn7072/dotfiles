@@ -1,0 +1,2 @@
+ln -s -f  $(pwd)/.zshrc /home/stepan/.zshrc
+ln -s -f  $(pwd)/.p10k.zsh /home/stepan/.p10k.zsh
