@@ -149,3 +149,9 @@ alias obsidian="nohup /usr/bin/flatpak run --branch=stable --arch=x86_64 --comma
 
 # запуст vpn
 alias amnezia="/usr/local/sbin/AmneziaVPN"
+
+# это добавляет пути для nodejs
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
