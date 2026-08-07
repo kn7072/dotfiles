@@ -132,7 +132,7 @@ source /home/stepan/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 alias youtube="yt-dlp --proxy socks5://127.0.0.1:8080 -o '%(title)s.f%(format_id)s.%(ext)s' -f 'bestvideo[height<=1080]+bestaudio/best[height<=720]'"
 
-alias ymusic="yt-dlp --proxy socks5://127.0.0.1:8080 -o '%(title)s.f%(format_id)s.%(ext)s' -f 'bestaudio/best[height<=720]'"
+alias ymusic="yt-dlp -x --proxy socks5://127.0.0.1:8080 -o '%(title)s.f%(format_id)s.%(ext)s' -f 'bestaudio/best[height<=720]'"
 
 export EDITOR=nvim
 
