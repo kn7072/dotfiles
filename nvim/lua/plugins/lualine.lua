@@ -12,6 +12,44 @@ local colors = {
     grey = '#303030'
 }
 
+--- Получает полный путь текущего буфера и сокращает имена каталогов.
+-- Если имя каталога длиннее 4 символов, оно обрезается до 4 символов 
+-- и к нему добавляется тильда (~). Имя файла не изменяется.
+-- @return string Сокращенный путь или пустая строка, если буфер не сохранен.
+function get_shortened_buffer_path()
+    local path = vim.api.nvim_buf_get_name(0)
+
+    -- Если буфер еще не сохранен (нет имени), возвращаем пустую строку
+    if path == "" then
+        return ""
+    end
+
+    -- Нормализуем разделители к '/' (на случай Windows, где используется '\')
+    path = path:gsub("\\", "/")
+
+    -- Находим позицию последнего слэша, чтобы отделить имя файла от пути
+    local last_slash = path:find("/[^/]*$")
+
+    -- Если слэша нет, значит это просто имя файла без директорий
+    if not last_slash then
+        return path
+    end
+
+    local dir_part = path:sub(1, last_slash - 1)
+    local file_part = path:sub(last_slash + 1)
+
+    -- Сокращаем названия каталогов в dir_part
+    -- Мы ищем любые последовательности символов между слэшами
+    local shortened_dir = dir_part:gsub("([^/]+)", function(match)
+        if #match > 4 then
+            return match:sub(1, 4) .. "~"
+        end
+        return match
+    end)
+
+    -- Собираем путь обратно
+    return shortened_dir .. "/" .. file_part
+end
 local bubbles_theme = {
     normal = {
         a = {fg = colors.black, bg = colors.violet},
@@ -39,12 +77,12 @@ require('lualine').setup {
     sections = {
         lualine_a = {{'mode', separator = {left = ''}, right_padding = 2}},
         lualine_b = {
-            'filename', 'branch'
+            get_shortened_buffer_path
             -- require("lsp-progress").progress  
         },
         lualine_c = {'fileformat'},
         lualine_x = {},
-        lualine_y = {'filetype', 'progress'},
+        lualine_y = {'branch', 'filetype', 'progress'},
         lualine_z = {
             {'location', separator = {right = ''}, left_padding = 2}
         }
