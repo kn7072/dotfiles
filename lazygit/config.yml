@@ -1,0 +1,185 @@
+gui:
+  # If true, show the number of lines changed per file in the Files view
+  showNumstatInFilesView: true
+  # If true, increase the height of the focused side window; creating an accordion effect.
+  expandFocusedSidePanel: true
+  # The weight of the expanded side panel, relative to the other panels. 2 means
+  # twice as tall as the other panels. Only relevant if `expandFocusedSidePanel` is true.
+  expandedSidePanelWeight: 4
+  # Length of author name in (non-expanded) commits view. 2 means show initials only.
+  commitAuthorShortLength: 3
+  theme:
+    # Background color of selected line.
+    selectedLineBgColor:
+      - "#575859"
+    # Border color of focused window
+    activeBorderColor:
+      - "#fa8ce2"
+      # - red
+      # - blue
+      - bold
+    inactiveBorderColor:
+      - green
+    # - blue
+    # - default
+
+    # os:
+    #   editPreset: "nvim"
+    authorColors:
+      # use red for John Smith
+      "stepan": "cyan"
+      # use blue for other authors,
+      "*": "#fbff00"
+# комманды работают только в если запустить lazygit в терминале, а не через yazi
+customCommands:
+  - key: "<c-k>"
+    command: "git --no-pager log --follow -- '**/keymap.c'"
+    context: "global"
+    description: "История всех keymap.c"
+    output: "popup"
+
+  - key: "<c-l>"
+    command: "git --no-pager log --follow -- '**/keymap.c'"
+    # command: "git log -- ':(glob)**/keymap.c'"
+    context: "global"
+    description: "История всех keymap.c"
+    # output: "logWithPty"
+    output: terminal
+  # COMMIT
+  # - key: "a"
+  #   command: "echo {{.Form.Branch | quote}}"
+  #   context: "commits"
+  #   prompts:
+  #     - type: "input"
+  #       title: "Which branch?"
+  #       key: "Branch"
+  #       # suggestions:
+  #       #   preset: "branches" # use built-in logic for obtaining branches
+  #       suggestions:
+  #         command: "git branch --format='%(refname:short)'"
+
+  # - key: "a"
+  #   command: "echo {{.Form.Remote | quote}}"
+  #   context: "commits"
+  #   prompts:
+  #     - type: "input"
+  #       title: "Remote:"
+  #       key: "Remote"
+  #       initialValue: "{{.SelectedRemote.Name}}"
+
+  # - key: "a"
+  #   command: 'echo "pushing to remote"'
+  #   context: "commits"
+  #   prompts:
+  #     - type: "confirm"
+  #       title: "Push to remote"
+  #       body: "Are you sure you want to push to the remote?"
+
+  # - key: "a"
+  #   command: "echo {{.Form.BranchType | quote}}"
+  #   context: "commits"
+  #   prompts:
+  #     - type: "menu"
+  #       title: "What kind of branch is it?"
+  #       key: "BranchType"
+  #       options:
+  #         - value: "feature"
+  #         - value: "hotfix"
+  #         - value: "release"
+
+  # - key: "<c-a>"
+  #   context: "commits"
+  #   description: "Diff всех файлов между коммитами"
+  #   command: "git diff {{.Form.OldCommit}} {{.Form.NewCommit}}"
+  #   output: "terminal"
+  #   prompts:
+  #     - type: "input"
+  #       title: "Старый коммит (для сравнения):"
+  #       key: "OldCommit"
+  #       initialValue: "HEAD"
+  #     - type: "input"
+  #       title: "Новый коммит (текущий):"
+  #       key: "NewCommit"
+  #       initialValue: "{{.SelectedCommit.Hash}}"
+
+  - key: "<c-a>"
+    context: "commits"
+    description: "Diff файлов выбранного коммита между двумя коммитами"
+    command: "git diff-tree --no-commit-id --name-only -z -r {{.Form.Commit1}} | xargs -0 git diff {{.Form.Commit1}} {{.Form.Commit2}} --"
+    output: "terminal"
+    prompts:
+      - type: "input"
+        title: "Первый коммит (источник файлов):"
+        key: "Commit1"
+        initialValue: "{{.SelectedCommit.Hash}}"
+      - type: "input"
+        title: "Второй коммит для сравнения:"
+        key: "Commit2"
+        initialValue: "HEAD"
+
+  - key: "a"
+    command: "echo {{.Form.BranchType | quote}}"
+    context: "commitFiles"
+    prompts:
+      - type: "input" # <-- меняем на input
+        title: "What kind of branch is it?"
+        key: "BranchType"
+        initialValue: "{{.SelectedCommitFile.Name}}" # <-- шаблон сработает здесь
+
+  # - key: "h" # Можете заменить на любую удобную клавишу
+  #   context: "commitFiles"
+  #   description: "История изменений этого файла"
+  #   # Обратите внимание на кавычки вокруг {{.Form.FilePath}} - это защитит от ошибок, если в пути есть пробелы
+  #   command: "git log --follow -- '{{.Form.FilePath}}'"
+  #   output: "terminal" # Откроет вывод в терминале, чтобы можно было листать (q для выхода)
+  #   prompts:
+  #     - type: "input"
+  #       title: "Путь к файлу для поиска истории:"
+  #       key: "FilePath" # Это имя переменной, которое мы используем в command выше
+  #       initialValue: "{{.SelectedCommitFile.Name}}"
+
+  # - key: "h"
+  #   context: "commitFiles"
+  #   description: "Только хеши коммитов для этого файла"
+  #   command: "git log --format='%h' -- '{{.SelectedCommitFile.Name}}'"
+  #   output: "terminal"
+
+  - key: "h"
+    context: "commitFiles"
+    description: "Хеши коммитов для файла"
+    command: "git log --format='%h %s' -- '{{.Form.FilePath}}'"
+    output: "terminal"
+    prompts:
+      - type: "input"
+        title: "Путь к файлу:"
+        key: "FilePath"
+        initialValue: "{{.SelectedCommitFile.Name}}"
+
+  - key: "d" # Например, клавиша 'd' для Diff
+    context: "commitFiles" # Работаем с файлами внутри конкретного коммита
+    description: "Сравнить этот файл с HEAD (или другим коммитом)"
+    command: "git diff {{.Form.OldCommit}} {{.Form.NewCommit}} -- '{{.SelectedCommitFile.Name}}'"
+    output: "terminal" # Или "popup", но terminal лучше для внешнего diff
+    prompts:
+      - type: "input"
+        title: "Старый коммит (или диапазон, например HEAD~3):"
+        key: "OldCommit"
+        initialValue: "HEAD" # По умолчанию сравниваем с текущим состоянием
+      - type: "input"
+        title: "Новый коммит:"
+        key: "NewCommit"
+        initialValue: "{{.SelectedCommit.Hash}}" # По умолчанию берем хеш коммита, в котором мы находимс
+  #
+  # REMOTES
+  # - key: "a"
+  #   description: "Checkout a remote branch as FETCH_HEAD"
+  #   command: "git fetch {{.Form.Remote}} {{.Form.Branch}} && git checkout FETCH_HEAD"
+  #   context: "remotes"
+  #   prompts:
+  #     - type: "menuFromCommand"
+  #       title: "Remote branch:"
+  #       key: "Branch"
+  #       command: "git branch  -r --list {{.SelectedRemote.Name }}/*"
+  #       filter: ".*{{.SelectedRemote.Name }}/(?P<branch>.*)"
+  #       valueFormat: "{{ .branch }}"
+  #       labelFormat: "{{ .branch | green }}"
