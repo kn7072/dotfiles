@@ -32,19 +32,6 @@ gui:
       "*": "#fbff00"
 # комманды работают только в если запустить lazygit в терминале, а не через yazi
 customCommands:
-  - key: "<c-k>"
-    command: "git --no-pager log --follow -- '**/keymap.c'"
-    context: "global"
-    description: "История всех keymap.c"
-    output: "popup"
-
-  - key: "<c-l>"
-    command: "git --no-pager log --follow -- '**/keymap.c'"
-    # command: "git log -- ':(glob)**/keymap.c'"
-    context: "global"
-    description: "История всех keymap.c"
-    # output: "logWithPty"
-    output: terminal
   # COMMIT
   # - key: "a"
   #   command: "echo {{.Form.Branch | quote}}"
